@@ -46,7 +46,7 @@ int main(void) {
 }
 Stablo citajDat(char *fn, Stablo S) {
 	FILE *out;
-	pozicija pom = NULL;					//pozicija je zapravo isto sta i Stablo, samo eno (Pokazivac na Cvor od stabla!!)
+	pozicija pom = NULL;			//pozicija je zapravo isto sta i Stablo, samo eno (Pokazivac na Cvor od stabla!!)
 	out = fopen(fn, "r");
 	if (out == NULL) {
 		printf("Cant read from file\n");
@@ -67,7 +67,7 @@ Stablo citajDat(char *fn, Stablo S) {
 Stablo dodaj(char *name, char *surn, Stablo S) {
 	if (S != NULL) {
 		if (_stricmp(surn, S->prezime) < 0 || (_stricmp(surn, S->prezime) == 0 && (_stricmp(name, S->ime) < 0))) //stricmp -> isto sto i strcmp samo sto ne razlikuje mala i velika slova,
-			S->L = dodaj(name, surn, S->L);																		// dakle RiJec i rijec su mu jednaki. Zahvale kolegi M.V. na toj spoznaji
+			S->L = dodaj(name, surn, S->L);						// dakle RiJec i rijec su mu jednaki. Zahvale kolegi M.V. na toj spoznaji
 		else if (_stricmp(surn, S->prezime) > 0 || (_stricmp(surn, S->prezime) == 0 && (_stricmp(name, S->ime) > 0)))
 			S->D = dodaj(name, surn, S->D);
 	}
@@ -99,7 +99,7 @@ Stablo trazi(char *name, char *surn, Stablo S) {
 	else return NULL;
 }
 int pomocPriUnosuUListu(char *s, Position P) {  //umjesto koristenja sscanfa, ja sam odlucia da stavljam svaku rijec 
-	FILE *in;									//u novu datoteku i citam iz nje rijec po rijec onda sa fscanf kao i gore
+	FILE *in;				//u novu datoteku i citam iz nje rijec po rijec onda sa fscanf kao i gore
 	char buff[MAX_IME];
 	in = fopen("novo.txt", "w+");				// w+ -> citat + pisat
 	if (in == NULL) {
@@ -107,8 +107,8 @@ int pomocPriUnosuUListu(char *s, Position P) {  //umjesto koristenja sscanfa, ja
 		return 1;
 	}
 	fprintf(in, "%s", s);
-	rewind(in);							//bilo kakav rad sa dat mice pokazivac po datoteci, treba ga vratit nazad za citat ispocetka
-	while (1) {							//ovako ne cita zadnju rijec dvaput ka sta bi u slucaju while(!feof(in))
+	rewind(in);			//bilo kakav rad sa dat mice pokazivac po datoteci, treba ga vratit nazad za citat ispocetka
+	while (1) {			//ovako ne cita zadnju rijec dvaput ka sta bi u slucaju while(!feof(in))
 		fscanf(in, " %s", buff);
 		if (feof(in))
 			break;
@@ -122,7 +122,7 @@ int unosUListu(char *buff, Position P) {
 	q = alocirajCvorListe(q);
 	strcpy(q->rijec, buff);
 	
-	q->Next = P->Next;			//recenice su napisane unazad, ispravi se tako da se stavlja na stog, umjesto na red, ako bi na red, ostale bi u istom redoslijedu
+	q->Next = P->Next;  //recenice su napisane unazad, ispravi se tako da se stavlja na stog, umjesto na red, ako bi na red, ostale bi u istom redoslijedu
 	P->Next = q;
 
 	return 0;
@@ -140,9 +140,9 @@ Stablo alocirajCvorStabla(Stablo S) {
 	S->L = NULL;
 	S->D = NULL;
 	S->lista = (struct Cvor*)malloc(sizeof(struct Cvor)); //struct Cvor head;
-	S->lista->Next = NULL;								  //head.Next = NULL;
-	return S;											 //svaki cvor stabla pokazuje na head od liste i onda je lako, slanje head-a je sad slanje S->lista. 
-}														//zahvale kolegici M.M. bez koje ovaj kljucni dio zadatka ne bi bia rijesen
+	S->lista->Next = NULL;				  //head.Next = NULL;
+	return S;				 //svaki cvor stabla pokazuje na head od liste i onda je lako, slanje head-a je sad slanje S->lista. 
+}						//zahvale kolegici M.M. na ukazivanje na ovo
 Position alocirajCvorListe(Position q) {
 	q = (struct Cvor*)malloc(sizeof(struct Cvor));
 	q->Next = NULL;
