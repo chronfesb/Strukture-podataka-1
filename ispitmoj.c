@@ -1,8 +1,9 @@
 //1.ISPITNI ROK 13.2.2020.
 
-//kod je zbog visestrukog otvaranja i zatvaranja datoteka spor, memorija nije dealocirana, napisano bez dealokacije da se moze 
+// memorija nije dealocirana, napisano bez dealokacije da se moze 
 //iscitat glavna ideja zadatka
-//ostali kojima je radilo nisu radili navedenu funkciju pomocPriUnosuUListu, vec su sa sscanf odmah citali rijec po rijec i stavljali u listu
+
+//updated:koristen sscanf
 #define _CRT_SECURE_NO_WARNINGS
 
 #include<stdio.h>
@@ -98,23 +99,16 @@ Stablo trazi(char *name, char *surn, Stablo S) {
 	}
 	else return NULL;
 }
-int pomocPriUnosuUListu(char *s, Position P) {  //umjesto koristenja sscanfa, ja sam odlucia da stavljam svaku rijec 
-	FILE *in;				//u novu datoteku i citam iz nje rijec po rijec onda sa fscanf kao i gore
+int pomocPriUnosuUListu(char *s, Position P) { 
 	char buff[MAX_IME];
-	in = fopen("novo.txt", "w+");				// w+ -> citat + pisat
-	if (in == NULL) {
-		printf("Cant r/w\n");
-		return 1;
-	}
-	fprintf(in, "%s", s);
-	rewind(in);			//bilo kakav rad sa dat mice pokazivac po datoteci, treba ga vratit nazad za citat ispocetka
-	while (1) {			//ovako ne cita zadnju rijec dvaput ka sta bi u slucaju while(!feof(in))
-		fscanf(in, " %s", buff);
-		if (feof(in))
-			break;
+	int i = 0;
+	int brojac = 0;
+
+	while (s[i] != '\0') {
+		sscanf(s + i, " %s %n", buff, &brojac);
+		i += brojac;
 		unosUListu(buff, P);
 	}
-	fclose(in);
 	return 0;
 }
 int unosUListu(char *buff, Position P) {
