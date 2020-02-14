@@ -1,7 +1,7 @@
 //1.ISPITNI ROK 13.2.2020.
 
-// memorija nije dealocirana, napisano bez dealokacije da se moze 
-//iscitat glavna ideja zadatka
+// memorija nije dealocirana, napisano bez dealokacije da se moze lakse
+// iscitat glavna ideja zadatka
 
 //updated:koristen sscanf
 #define _CRT_SECURE_NO_WARNINGS
